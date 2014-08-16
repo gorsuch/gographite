@@ -17,7 +17,7 @@ if err != nil {
 }
 
 targets := []string{"system.a.load.1m", "foo.bar.baz"}
-results, err := c.Render(targets)
+results, err := c.Render(targets, "-5min")
 if err != nil {
   log.Fatal(err)
 }
