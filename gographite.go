@@ -9,25 +9,30 @@ import (
 	"reflect"
 )
 
+// Data as returned by graphite
 type GraphiteResult struct {
 	Target     string          `json:"target"`
 	Datapoints [][]interface{} `json:"datapoints"`
 }
 
+// A datapoint, as we'd like to see it
 type Datapoint struct {
 	X int     `json:"x"`
 	Y float64 `json:"y"`
 }
 
+// A proper result
 type Result struct {
 	Target     string      `json:"target"`
 	Datapoints []Datapoint `json:"datapoints"`
 }
 
+// A graphite client
 type Client struct {
-	BaseURL *url.URL
+	baseURL *url.URL
 }
 
+// Helper to make creating a new graphite client a little easier
 func NewClient(baseURL string) (*Client, error) {
 	u, err := url.Parse(baseURL)
 	if err != nil {
@@ -37,6 +42,7 @@ func NewClient(baseURL string) (*Client, error) {
 	return &Client{BaseURL: u}, nil
 }
 
+// Generate a proper request URL based on the inputs
 func (c *Client) RequestURL(targets []string, from string) string {
 	u := c.BaseURL
 	u.Path = "/render"
@@ -51,6 +57,7 @@ func (c *Client) RequestURL(targets []string, from string) string {
 	return u.String()
 }
 
+// Hit the graphite render endpoint with the given settings and return a slice of Results
 func (c *Client) Render(targets []string, from string) ([]Result, error) {
 	res, err := http.Get(c.RequestURL(targets, from))
 	if err != nil {
