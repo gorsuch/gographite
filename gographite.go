@@ -62,6 +62,10 @@ func (c *Client) Render(targets []string, from string) ([]Result, error) {
 		return nil, errors.New("non-200 status code returned")
 	}
 
+	if res.Header.Get("Content-Type") != "application/json" {
+		return nil, errors.New("non-json response returned")
+	}
+
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
