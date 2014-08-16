@@ -27,6 +27,15 @@ type Client struct {
 	BaseURL *url.URL
 }
 
+func NewClient(baseURL string) (*Client, error) {
+	u, err := url.Parse(baseURL)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Client{BaseURL: u}, nil
+}
+
 func (c *Client) RequestURL(targets []string, from string) string {
 	u := c.BaseURL
 	u.Path = "/render"
