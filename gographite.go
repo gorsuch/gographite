@@ -86,7 +86,7 @@ func (c *Client) Render(targets []string, from string) ([]Result, error) {
 			dp.X = int(gdp[1].(float64))
 
 			// if we have a Float64, grab that value
-			// otherwise, we have null, so just move on
+			// otherwise, we have null, so just move on and use the default of 0
 			val := reflect.ValueOf(gdp[0])
 			switch val.Kind() {
 			case reflect.Float64:
