@@ -2,6 +2,7 @@ package gographite
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -56,6 +57,10 @@ func (c *Client) Render(targets []string, from string) ([]Result, error) {
 		return nil, err
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode != 200 {
+		return nil, errors.New("non-200 status code returned")
+	}
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
