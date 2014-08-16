@@ -1,5 +1,4 @@
-gographite
-==========
+# gographite
 
 Lightweight go client library for the graphite render api
 
@@ -24,4 +23,20 @@ if err != nil {
 }
 
 fmt.Println(results)
+```
+
+# graphitec
+
+A small command line utility to query graphite metrics
+
+## Installation
+
+```sh
+$ go get github.com/gorsuch/gographite/cmd/graphitec
+```
+
+## Usage
+
+```sh
+$ graphitec -graphite http://graphite.example.com -target carbon.agents.*.metricsReceived
 ```
