@@ -2,6 +2,8 @@
 
 Lightweight go client library for the graphite render api
 
+Fetches multiple targets as JSON, munges to make the results slightly more useful.  Also, `nulls` are replaced with zeros.
+
 ## Installation
 
 ```sh
