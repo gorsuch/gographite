@@ -39,12 +39,12 @@ func NewClient(baseURL string) (*Client, error) {
 		return nil, err
 	}
 
-	return &Client{BaseURL: u}, nil
+	return &Client{baseURL: u}, nil
 }
 
 // Generate a proper request URL based on the inputs
 func (c *Client) RequestURL(targets []string, from string) string {
-	u := c.BaseURL
+	u := c.baseURL
 	u.Path = "/render"
 
 	q := url.Values{}
