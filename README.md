@@ -1,4 +1,4 @@
-# gographite
+# gographite [![Build Status](https://travis-ci.org/gorsuch/gographite.svg?branch=master)](https://travis-ci.org/gorsuch/gographite)
 
 Lightweight go client library for the graphite render api
 
