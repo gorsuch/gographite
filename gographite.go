@@ -17,8 +17,8 @@ type GraphiteResult struct {
 
 // A datapoint, as we'd like to see it
 type Datapoint struct {
-	X int     `json:"x"`
-	Y float64 `json:"y"`
+	X int      `json:"x"`
+	Y *float64 `json:"y"`
 }
 
 // A proper result
@@ -29,7 +29,8 @@ type Result struct {
 
 // A graphite client
 type Client struct {
-	baseURL *url.URL
+	baseURL    *url.URL
+	nullAsZero bool
 }
 
 // Helper to make creating a new graphite client a little easier
@@ -97,7 +98,8 @@ func (c *Client) Render(targets []string, from string) ([]Result, error) {
 			val := reflect.ValueOf(gdp[0])
 			switch val.Kind() {
 			case reflect.Float64:
-				dp.Y = gdp[0].(float64)
+				v := gdp[0].(float64)
+				dp.Y = &v
 			}
 			result.Datapoints = append(result.Datapoints, dp)
 		}
